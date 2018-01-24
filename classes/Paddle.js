@@ -4,7 +4,7 @@ class Paddle {
   	this.width = 5;
   	this.xPos = xPos;
   	this.yPos = yPos; 	
-  	this.speed = 20;//in pixels per key press - no idea if this is a reasonable number
+  	this.speed = 25;//in pixels per key press - no idea if this is a reasonable number
  
   }	
 	

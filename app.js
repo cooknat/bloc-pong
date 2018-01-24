@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
   //create paddles
   var player = new Paddle(10, 150);
   var computer = new Paddle(885, 250);
-  var ball = new Ball(452, 240);
+  var ball = new Ball();
 
   var visuals = [player, computer, ball];  
 
@@ -33,6 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		var step = function() {
 		  //update();
+		  ball.move();
 		  render(visuals);
 		  animate(step);
 		};  
