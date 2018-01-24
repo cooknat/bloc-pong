@@ -5,8 +5,7 @@ class Ball {
   	this.yPos = yPos;
   }	
 
-  render(context){
-	  console.log("drawing ball");
+  render(context){	  
 	  context.fillStyle = "red";
       context.beginPath();
       context.arc(this.xPos, this.yPos, this.radius, 0, 2*Math.PI, false);		
