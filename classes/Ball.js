@@ -39,10 +39,6 @@ class Ball {
     	console.log("hit");
     	this.vX = -this.vX;
     }
-
-
-
-
 		//if the ball leaves the board on the x-axis
 		else if (this.xPos + this.vX > 895 || this.xPos + this.vX < 0) {
 		  this.endRound(this.xPos);
@@ -54,10 +50,14 @@ class Ball {
 			this.reset();
 			
 			if(pos < 15){
-        console.log("computer won");
+        
+        this.computer.score++;
+        console.log(this.computer.score);
 			}
 			if(pos > 885){
-				console.log("player won");
+				
+				this.player.score++;
+				console.log(this.player.score);
 			}
 	}		
 

@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
   var player = new Paddle(ball);
   var computer = new AIPaddle(ball);  
   ball.setPlayers(player, computer);
-  
+
   var visuals = [player, computer, ball];  
 
   function render(objectArray){
@@ -36,6 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	var step = function() {		  
 		 // console.log("stepping");
+		 scoreboard.innerHTML = `You: ${player.score}, Computer: ${computer.score}`;
 		  ball.move();
 		  computer.update();
 		  render(visuals);
@@ -44,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
    
 	  window.onload = function() {
-	  	scoreboard.innerHTML = "scores will go here";
+	  	scoreboard.innerHTML = `You: ${player.score}, Computer: ${computer.score}`;
 	  	animate(step);
 		};
 
