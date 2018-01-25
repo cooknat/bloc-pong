@@ -4,8 +4,8 @@ class Paddle {
   	this.width = 5;
   	this.xPos = 10;
   	this.yPos = 150; 	
-  	this.speed = 30;//in pixels per key press - no idea if this is a reasonable number
-  	this.score = 0;
+  	this.speed = 50;//in pixels per key press - no idea if this is a reasonable number
+  	this.score = 0; 
   	this.ball = ball;
  
   }	
@@ -27,12 +27,6 @@ class Paddle {
 	  }	
 	}
 
-	score(){
-		if(this.ball.xPos > 885){			
-			this.score++;
-			console.log(score);
-		}		
-	}	
 
 	move(direction, speed){
 	  //up and down arrows control the paddle

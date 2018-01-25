@@ -9,10 +9,10 @@ class AIPaddle extends Paddle {
 
 
 	update(){//rearrange the logic here to get rid of the empty else if
-		if(this.ball.yPos < (this.yPos-10)){
+		if(this.ball.yPos < (this.yPos+50)){//add a bit more randomness to the way this moves - currently unbeatable?
 			this.move("up", this.speed);
 		}
-		else if(this.ball.yPos === (this.yPos+10)){
+		else if(this.ball.yPos === (this.yPos)){
 			//stay still!
 		}
 		else{

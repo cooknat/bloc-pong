@@ -6,6 +6,8 @@ class Ball {
   	this.speed = 90; //pixels per second
   	this.vX = this.getVector(); 
   	this.vY = this.getVector();
+  	this.player = null;
+  	this.computer = null;
   }	
 
   render(context){	  
@@ -15,6 +17,11 @@ class Ball {
 	  context.fill();
 	}	
 
+	setPlayers(player, computer){
+		this.player = player;
+		this.computer = computer;
+	}
+
 	getPosition(){
 		return [this.xPos, this.yPos];
 	}
@@ -22,16 +29,27 @@ class Ball {
 	move(e){       
 	  this.xPos+=this.vX;
 	  this.yPos+=this.vY;
-
+    //bounce off the walls
 		if (this.yPos + this.vY > 495 || this.yPos + this.vY < 0) {
 		  this.vY = -this.vY;
 		}
-		if (this.xPos + this.vX > 895 || this.xPos + this.vX < 0) {
-		  this.endGame(this.xPos);
+		//bounce off the paddles
+    else if ((((this.yPos + this.vY) > this.computer.yPos && (this.yPos + this.vY) < (this.computer.yPos+100)) && this.xPos === 880)
+    	       ||  (((this.yPos + this.vY) > this.player.yPos) && ((this.yPos + this.vY) < (this.player.yPos+100)) && this.xPos === 20)){
+    	console.log("hit");
+    	this.vX = -this.vX;
+    }
+
+
+
+
+		//if the ball leaves the board on the x-axis
+		else if (this.xPos + this.vX > 895 || this.xPos + this.vX < 0) {
+		  this.endRound(this.xPos);
 		}
 	}
 
-	endGame(pos){
+	endRound(pos){
 			console.log("ENDED" + pos);	
 			this.reset();
 			

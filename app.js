@@ -9,13 +9,12 @@ document.addEventListener('DOMContentLoaded', () => {
 	var serveButton = document.getElementById("serve-button");
   
  
-  //create paddles and ball
-  var ball = new Ball();
-  var player = new Paddle();
-  var computer = new AIPaddle(ball);
-
+  //create paddles and ball  
+  var ball = new Ball();  
+  var player = new Paddle(ball);
+  var computer = new AIPaddle(ball);  
+  ball.setPlayers(player, computer);
   
-
   var visuals = [player, computer, ball];  
 
   function render(objectArray){
