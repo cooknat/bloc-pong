@@ -1,8 +1,8 @@
 class Ball {
   constructor() {
   	this.radius = 10;
-  	this.xPos = 20;
-  	this.yPos = 20;
+  	this.xPos = 450;
+  	this.yPos = 250;
   	this.speed = 90; //pixels per second
   	this.vX = this.getVector(); 
   	this.vY = this.getVector();
@@ -15,6 +15,10 @@ class Ball {
 	  context.fill();
 	}	
 
+	getPosition(){
+		return [this.xPos, this.yPos];
+	}
+
 	move(e){       
 	  this.xPos+=this.vX;
 	  this.yPos+=this.vY;
@@ -22,14 +26,46 @@ class Ball {
 		if (this.yPos + this.vY > 495 || this.yPos + this.vY < 0) {
 		  this.vY = -this.vY;
 		}
-		/*if (this.xPos + this.vX > 895 || this.xPos + this.vX < 0) {
-		  this.vX = -this.vX;
-		}*/
+		if (this.xPos + this.vX > 895 || this.xPos + this.vX < 0) {
+		  this.endGame(this.xPos);
+		}
+	}
+
+	endGame(pos){
+			console.log("ENDED" + pos);	
+			this.reset();
+			
+			if(pos < 15){
+        console.log("computer won");
+			}
+			if(pos > 885){
+				console.log("player won");
+			}
+	}		
+
+	serve(){
+		this.speed = 90;
+    this.vX = this.getVector(); 
+  	this.vY = this.getVector();
+
+	}
+
+	reset(){
+		this.xPos = 450;
+		this.yPos = 250;
+		this.speed = 0;
+		this.vX = 0;
+  	this.vY = 0;
 	}
 
 	getVector(){		
-		return Math.floor((Math.random() * 5) + 1);
-	
+		var v = Math.floor((Math.random() * 10) - 5);	
+			if (v === 0){				
+				return this.getVector();
+			}
+			else{
+				return v;
+  	 }
 	}
 
 	

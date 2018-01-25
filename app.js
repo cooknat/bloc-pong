@@ -1,16 +1,20 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-
+  //maybe add some global positioning constants? and scoreboard?
 
   //ref to canvas
 	var canvas = document.getElementById("pong-table");
 	var context = canvas.getContext("2d");
+	var scoreboard = document.getElementById("scores");
+	var serveButton = document.getElementById("serve-button");
   
  
-  //create paddles
-  var player = new Paddle(10, 150);
-  var computer = new Paddle(885, 250);
+  //create paddles and ball
   var ball = new Ball();
+  var player = new Paddle();
+  var computer = new AIPaddle(ball);
+
+  
 
   var visuals = [player, computer, ball];  
 
@@ -31,19 +35,26 @@ document.addEventListener('DOMContentLoaded', () => {
         window.msRequestAnimationFrame     ||
         function(callback) { window.setTimeout(callback, 1000/60) };
 
-		var step = function() {
-		  //update();
+	var step = function() {		  
+		 // console.log("stepping");
 		  ball.move();
+		  computer.update();
 		  render(visuals);
 		  animate(step);
 		};  
-  
+
+   
 	  window.onload = function() {
+	  	scoreboard.innerHTML = "scores will go here";
 	  	animate(step);
 		};
+
+		serveButton.addEventListener('click', function() { ball.serve() });
+
+
     window.addEventListener('keydown', 
     												function(e) {
-    														player.move(e);	    														
+    														player.update(e);	    														
     												});
 
 
