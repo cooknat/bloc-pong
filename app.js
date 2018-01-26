@@ -9,13 +9,14 @@ document.addEventListener('DOMContentLoaded', () => {
 	var serveButton = document.getElementById("serve-button");
   
  
-  //create paddles and ball  
+  //create paddles and balls  
   var ball = new Ball();  
+  var invisiBall = new InvisibleBall(ball);
   var player = new Paddle(ball);
-  var computer = new AIPaddle(ball);  
-  ball.setPlayers(player, computer);
+  var computer = new AIPaddle(ball, invisiBall);  
+  ball.setPlayers(player, computer, invisiBall); 
 
-  var visuals = [player, computer, ball];  
+  var visuals = [player, computer, ball, invisiBall];  
 
   function render(objectArray){
   	context.clearRect(0, 0, canvas.width, canvas.height);
@@ -34,22 +35,49 @@ document.addEventListener('DOMContentLoaded', () => {
         window.msRequestAnimationFrame     ||
         function(callback) { window.setTimeout(callback, 1000/60) };
 
-	var step = function() {		  
-		 // console.log("stepping");
+	var step = function() {		  	
+	   checkScore();
 		 scoreboard.innerHTML = `You: ${player.score}, Computer: ${computer.score}`;
+		 if(invisiBall.inPlay === true){
+		 		invisiBall.move();
+		  }
 		  ball.move();
 		  computer.update();
 		  render(visuals);
 		  animate(step);
 		};  
 
+		function checkScore(){			
+			var gameover = document.getElementById("game-over");
+			var winner = document.getElementById("winner");
+			var finalScore = document.getElementById("final-score");
+
+			if(player.score === 11){
+				gameover.classList.remove('hidden');
+				winner.innerHTML = "YOU WON!!!";
+				finalScore.innerHTML = `You: ${player.score}, Computer: ${computer.score}`;
+				player.score = 0;
+				computer.score = 0;				
+			}
+			if(computer.score === 11){
+				gameover.classList.remove('hidden');
+				winner.innerHTML = "YOU LOST :(";
+				finalScore.innerHTML = `You: ${player.score}, Computer: ${computer.score}`;
+				player.score = 0;
+				computer.score = 0;
+			}
+		}
+
    
-	  window.onload = function() {
-	  	scoreboard.innerHTML = `You: ${player.score}, Computer: ${computer.score}`;
+	  window.onload = function() {	  	
 	  	animate(step);
 		};
-
-		serveButton.addEventListener('click', function() { ball.serve() });
+     
+		window.addEventListener('keydown', function(e){ 
+																										if(e.keyCode === 32){
+																											ball.serve() 
+																										}
+																									});
 
 
     window.addEventListener('keydown', 

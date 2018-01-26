@@ -1,3 +1,4 @@
+
 #pong-table{
 	background-color: green;
 	padding: 0;
@@ -10,3 +11,35 @@
     right: 0;
     border: 5px solid black;
 }
+
+#game-over{
+	height: 150px;
+	width: 250px;
+	background-color: black;
+	padding: 0;
+    margin: auto;
+    display: block;   
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border: 2px solid white;
+ }
+
+ #winner{
+	color: white;
+	text-align: center;
+    line-height: 50px;
+ }
+
+ #final-score{
+ 	color: white;
+	text-align: center;
+    line-height: 50px;
+ }
+
+.hidden {
+	visibility: hidden;
+ }
+

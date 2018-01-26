@@ -4,15 +4,23 @@
   <title>PONG!!!</title>
   <script src="app.js"></script>
   <script src="./classes/Ball.js"></script>
+  <script src="./classes/InvisibleBall.js"></script>
   <script src="./classes/Paddle.js"></script>
   <script src="./classes/AIPaddle.js"></script>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="game-controls">
-	  <p id="scores"></p>	
-	  <button id="serve-button">Click to serve the ball</button>
-  </div>	  
-  <canvas height="500px" width="900px" id="pong-table">
-  </canvas>	
+	<div class="main">
+	  <div id="game-controls">
+		  <p id="scores"></p>	
+		  <p>Press *spacebar* to serve</p>
+	  </div>	  
+	 
+	  <canvas height="500px" width="900px" id="pong-table">  		   	
+	  </canvas>	
+	  <div id="game-over" class="hidden">
+	  		<p id="winner"></p>
+	  		<p id="final-score"><p>
+	  <div>
+</div>
 </body>

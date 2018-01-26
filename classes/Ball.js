@@ -3,11 +3,12 @@ class Ball {
   	this.radius = 10;
   	this.xPos = 450;
   	this.yPos = 250;
-  	this.speed = 90; //pixels per second
+  	this.speed = this.getSpeed(); //pixels per second
   	this.vX = this.getVector(); 
   	this.vY = this.getVector();
   	this.player = null;
-  	this.computer = null;
+  	this.computer = null;  	
+  	this.invisiBall = null;
   }	
 
   render(context){	  
@@ -17,52 +18,54 @@ class Ball {
 	  context.fill();
 	}	
 
-	setPlayers(player, computer){
+	setPlayers(player, computer, invisiBall){
 		this.player = player;
 		this.computer = computer;
+		this.invisiBall = invisiBall;
 	}
 
 	getPosition(){
 		return [this.xPos, this.yPos];
 	}
 
-	move(e){       
+	move(){       
 	  this.xPos+=this.vX;
 	  this.yPos+=this.vY;
+
     //bounce off the walls
-		if (this.yPos + this.vY > 495 || this.yPos + this.vY < 0) {
+		if (this.yPos + this.vY > 490 || this.yPos + this.vY < 10) {
 		  this.vY = -this.vY;
 		}
 		//bounce off the paddles
-    else if ((((this.yPos + this.vY) > this.computer.yPos && (this.yPos + this.vY) < (this.computer.yPos+100)) && this.xPos === 880)
-    	       ||  (((this.yPos + this.vY) > this.player.yPos) && ((this.yPos + this.vY) < (this.player.yPos+100)) && this.xPos === 20)){
-    	console.log("hit");
-    	this.vX = -this.vX;
+    else if ((this.yPos > this.player.yPos) && (this.yPos < (this.player.yPos + 100)) && (this.xPos > 23 && this.xPos < 27) 
+					|| (this.yPos > this.computer.yPos) && (this.yPos < (this.computer.yPos + 100)) && (this.xPos > 873 && this.xPos < 877)) {  
+					console.log("HIT");     
+    	this.vX = (-this.vX);
+    //at this point launch invisible ball if it has come off the player's paddle      
+	    if(this.xPos < 30){
+		    this.invisiBall.setPosition();
+		    this.invisiBall.inPlay = true;
+		  }
     }
 		//if the ball leaves the board on the x-axis
 		else if (this.xPos + this.vX > 895 || this.xPos + this.vX < 0) {
+			this.invisiBall.inPlay = false;
 		  this.endRound(this.xPos);
 		}
 	}
 
-	endRound(pos){
-			console.log("ENDED" + pos);	
-			this.reset();
-			
-			if(pos < 15){
-        
-        this.computer.score++;
-        console.log(this.computer.score);
+	endRound(pos){			
+			this.reset();			
+			if(pos < 15){        
+        this.computer.score++;        
 			}
-			if(pos > 885){
-				
-				this.player.score++;
-				console.log(this.player.score);
+			if(pos > 885){				
+				this.player.score++;				
 			}
 	}		
 
 	serve(){
-		this.speed = 90;
+		this.speed = this.getSpeed();
     this.vX = this.getVector(); 
   	this.vY = this.getVector();
 
@@ -86,6 +89,9 @@ class Ball {
   	 }
 	}
 
-	
+	getSpeed(){//between 90 and 120
+		return Math.floor((Math.random() * 31) + 90);
+
+	}
 
 }
